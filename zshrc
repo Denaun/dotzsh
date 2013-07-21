@@ -52,10 +52,10 @@ ZSH_THEME="miloshadzic"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 case $OSTYPE in
 	darwin*)
-		plugins=(osx git macports terminalapp);
+		plugins=(osx git macports terminalapp cloudapp);
 		;;
 	linux*)
-		plugins=(git);
+		plugins=(debian git);
 		;;
 esac
 # vi-mode	removed because it disables shift-tab
