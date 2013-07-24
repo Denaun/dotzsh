@@ -76,3 +76,6 @@ function chpwd()
 	emulate -LR zsh
 	ls
 }
+
+# Named directories
+export work=~/Dropbox/Appunti/Magistrale/Primo\ Anno/Secondo\ Semestre/
