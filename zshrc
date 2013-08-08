@@ -45,37 +45,55 @@ ZSH_THEME="miloshadzic"
 # Uncomment following line if you want to disable marking untracked files under
 # VCS as dirty. This makes repository status check for large repositories much,
 # much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git zsh-syntax-highlighting);
 case $OSTYPE in
-	darwin*)
-		plugins=(osx git macports terminalapp cloudapp);
-		;;
-	linux*)
-		plugins=(debian git);
-		;;
+  darwin*)
+    plugins+=(osx macports terminalapp cloudapp);
+    ;;
+  linux*)
+    plugins+=(debian);
+    ;;
 esac
 # vi-mode	removed because it disables shift-tab
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 
 case $OSTYPE in
-	darwin*)
-		source $HOME/.profile
-		;;
+  darwin*)
+    source $HOME/.profile
+    ;;
 esac
 
 # List directory contents after a 'cd'
+# (Only if the output will be less then 20 lines long)
 function chpwd()
 {
-	emulate -LR zsh
-	ls
+  emulate -LR zsh
+
+  if [[ `ls -AC | wc -l` -le 20 ]]
+  then
+    ls -A
+  fi
 }
 
 # Named directories
-export work=~/Dropbox/Appunti/Magistrale/Primo\ Anno/Secondo\ Semestre/
+export dbox=~/Dropbox/
+export work=~dbox/Appunti/Magistrale/Primo\ Anno/Secondo\ Semestre/
+export shared=~dbox/Appunti/Universita\`/
+
+# Extended Move Command
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
+# Enable patterns in history search
+bindkey "^R" history-incremental-pattern-search-backward
+bindkey "^S" history-incremental-pattern-search-forward
+
