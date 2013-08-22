@@ -1,3 +1,6 @@
+# Should speed up
+skip_global_compinit=1
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.zsh/oh-my-zsh
 
