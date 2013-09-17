@@ -89,7 +89,7 @@ function chpwd()
 
 # Named directories
 export dbox=~/Dropbox/
-export work=~dbox/Appunti/Magistrale/Primo\ Anno/Secondo\ Semestre/
+export work=~dbox/Appunti/Magistrale/Secondo\ Anno/Primo\ Semestre/
 export shared=~dbox/Appunti/Universita\`/
 
 # Extended Move Command
