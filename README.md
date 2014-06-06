@@ -1,0 +1,4 @@
+dotzsh
+======
+
+My zsh config
