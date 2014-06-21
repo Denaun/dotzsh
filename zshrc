@@ -53,17 +53,17 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git zsh-syntax-highlighting);
+plugins=(git zsh-syntax-highlighting gem);
 case $OSTYPE in
   darwin*)
-    plugins+=(osx macports terminalapp cloudapp);
+    plugins+=(osx brew terminalapp cloudapp);
     ;;
   linux*)
     plugins+=(debian);
     ;;
 esac
 # vi-mode	removed because it disables shift-tab
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets patterns)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,3 +100,23 @@ alias mmv='noglob zmv -W'
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey "^S" history-incremental-pattern-search-forward
 
+bid()
+{
+  local shortname location
+
+  # combine all args as regex
+  # (and remove ".app" from the end if it exists due to autocomplete)
+  shortname=$(echo "${@%%.app}"|sed 's/ /.*/g')
+  # if the file is a full match in apps folder, roll with it
+  if [ -d "/Applications/$shortname.app" ]; then
+    location="/Applications/$shortname.app"
+  else # otherwise, start searching
+    location=$(mdfind -onlyin /Applications -onlyin ~/Applications -onlyin /Developer/Applications 'kMDItemKind==Application'|awk -F '/' -v re="$shortname" 'tolower($NF) ~ re {print $0}'|head -n1)
+  fi
+  # No results? Die.
+  [[ -z $location || $location = "" ]] && echo "$1 not found, I quit" && return
+  # Otherwise, find the bundleid using spotlight metadata
+  bundleid=$(mdls -name kMDItemCFBundleIdentifier -r "$location")
+  # return the result or an error message
+  [[ -z $bundleid || $bundleid = "" ]] && echo "Error getting bundle ID for \"$@\"" || echo "$location: $bundleid"
+}
