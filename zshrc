@@ -56,7 +56,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git zsh-syntax-highlighting gem);
 case $OSTYPE in
   darwin*)
-    plugins+=(osx brew terminalapp cloudapp);
+    plugins+=(osx brew brew-cask terminalapp cloudapp);
     ;;
   linux*)
     plugins+=(debian);
@@ -89,8 +89,8 @@ function chpwd()
 
 # Named directories
 export dbox=~/Dropbox/
-export work=~dbox/Appunti/Magistrale/Secondo\ Anno/Primo\ Semestre/
-export shared=~dbox/Appunti/Universita\`/
+export work=~dbox/University/Private/Thesis
+export shared=~dbox/University/Shared/
 
 # Extended Move Command
 autoload -U zmv
